@@ -1,5 +1,5 @@
 AOS.init();
-/* Project Cards */
+/* Project Card */
 
 const projectcards = document.querySelector(".projectcards");
 
