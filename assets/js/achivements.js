@@ -40,7 +40,7 @@ const projects = [
 const showCards = () => {
   let output = `
     <div style="width: 100%; text-align: center; margin: 20px 0;">
-      <h1 style="font-weight: bold;">My Projects</h1>
+      <h1 style="font-weight: bold;">My Achivements🏆</h1>
     </div>`; // Added My Projects header
 
   // Function to group projects by year and render them
