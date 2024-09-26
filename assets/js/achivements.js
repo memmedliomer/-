@@ -15,21 +15,22 @@ const projects = [
   },
   {
     title: "Third Project",
-    cardImage: "assets/images/project-page/3.jpg", // Üçüncü resim
+    cardImage: "assets/images/project-page/3.png", // Üçüncü resim
   },
   {
     title: "Fourth Project",
-    cardImage: "assets/images/project-page/4.jpg", // Dördüncü resim
+    cardImage: "assets/images/project-page/4.png", // Dördüncü resim
   },
   {
     title: "Fifth Project",
-    cardImage: "assets/images/project-page/5.jpg", // Beşinci resim
+    cardImage: "assets/images/project-page/5.png", // Beşinci resim
   },
 ];
 
 // Function for rendering project cards data
 const showCards = () => {
   let output = "";
+  
   // İlk iki projeyi göster
   projects.slice(0, 2).forEach(({ title, cardImage }) => {
     output += `       
@@ -48,13 +49,13 @@ const showCards = () => {
         </div>`;
   });
 
-  // 2025 yazısını ekle (İki resimden sonra)
+  // 2025 yazısını ekle (İki resimden sonra, sayfanın ortasında)
   output += `
-    <div style="text-align: center; margin-top: 50px;">
+    <div style="text-align: center; margin: 50px 0;">
       <h1 style="font-size: 36px; color: black;">2025</h1>
     </div>`;
 
-  // Üçüncü ve diğer projeleri göster (2025'ten sonra)
+  // Üçüncü ve diğer projeleri göster (2025 yazısının altında)
   projects.slice(2).forEach(({ title, cardImage }) => {
     output += `       
         <div class="column skill-card card" style="margin: 15px" data-aos="zoom-in-up" data-aos-easing="linear" data-aos-delay="300" data-aos-duration="600" >
