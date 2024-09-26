@@ -8,7 +8,7 @@ const projects = [
   {
     title: "SafeOrbitNet\nMobil Application",
     cardImage: "assets/images/project-page/1.png",
-    tagimg: "https://cdn.iconscout.com/icon/free/png-512/react-1-282599.png",
+    
     
   },
   {
