@@ -97,7 +97,7 @@ function myFunction() {
       title[i].innerHTML.toUpperCase().includes(input)
     ) {
       //skillcard[i].style.display = "";
-      card[i].style.display = "";
+      //card[i].style.display = "";
     } else {
       //skillcard[i].style.display = "none";
       card[i].style.display = "none";
