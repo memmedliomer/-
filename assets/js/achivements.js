@@ -18,7 +18,6 @@ const projects = [
   { title: "13th Project", cardImage: "assets/images/project-page/15.png", year: "2023" },
   { title: "12th Project", cardImage: "assets/images/project-page/14.png", year: "2023" },
   
-  
   { title: "11th Project", cardImage: "assets/images/project-page/11.png", year: "2022" },
   { title: "10th Project", cardImage: "assets/images/project-page/10.png", year: "2022" },
   { title: "9th Project", cardImage: "assets/images/project-page/9.png", year: "2022" },
@@ -39,7 +38,10 @@ const projects = [
 
 // Function for rendering project cards data
 const showCards = () => {
-  let output = "";
+  let output = `
+    <div style="width: 100%; text-align: center; margin: 20px 0;">
+      <h1 style="font-weight: bold;">My Projects</h1>
+    </div>`; // Added My Projects header
 
   // Function to group projects by year and render them
   const renderProjectsForYear = (year, projects) => {
@@ -80,26 +82,21 @@ const showCards = () => {
 
 document.addEventListener("DOMContentLoaded", showCards);
 
-
 function myFunction() {
   // Declare variables
   var input, button, i, skillcard, card, title;
   input = document.getElementById("myInput").value;
   input = input.toUpperCase();
-  //skillcard = document.getElementsByClassName("skill-card");
   card = document.getElementsByClassName("card");
   title = document.getElementsByClassName("title");
 
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < button.length; i++) {
+  // Loop through all cards, and hide those who don't match the search query
+  for (i = 0; i < card.length; i++) {
     if (
-      button[i].innerHTML.toUpperCase().includes(input) ||
       title[i].innerHTML.toUpperCase().includes(input)
     ) {
-      skillcard[i].style.display = "";
       card[i].style.display = "";
     } else {
-      skillcard[i].style.display = "none";
       card[i].style.display = "none";
     }
   }
