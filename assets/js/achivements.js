@@ -49,10 +49,10 @@ const showCards = () => {
         </div>`;
   });
 
-  // 2025 yazısını ekle (İki resimden sonra, sayfanın ortasında)
+  // 2025 yazısını iki resmin altına ortala
   output += `
-    <div style="text-align: center; margin: 50px 0;">
-      <h1 style="font-size: 36px; color: black;">2025</h1>
+    <div style="width: 100%; text-align: center; margin: 50px 0;">
+      <h1 style="font-size: 36px; color: white;">2025</h1>
     </div>`;
 
   // Üçüncü ve diğer projeleri göster (2025 yazısının altında)
