@@ -96,10 +96,10 @@ function myFunction() {
       button[i].innerHTML.toUpperCase().includes(input) ||
       title[i].innerHTML.toUpperCase().includes(input)
     ) {
-      //skillcard[i].style.display = "";
-      //card[i].style.display = "";
+      skillcard[i].style.display = "";
+      card[i].style.display = "";
     } else {
-      //skillcard[i].style.display = "none";
+      skillcard[i].style.display = "none";
       card[i].style.display = "none";
     }
   }
