@@ -50,7 +50,7 @@ const showCards = () => {
 
     projects.forEach(({ title, cardImage }) => {
       output += `       
-        <div class="column skill-card card" style="margin: 15px" data-aos="zoom-in-up" data-aos-easing="linear" data-aos-delay="300" data-aos-duration="600">
+        <div  style="margin: 15px" data-aos="zoom-in-up" data-aos-easing="linear" data-aos-delay="300" data-aos-duration="600">
           <div class="wrapper" style="background: url(${cardImage}) center / cover no-repeat;">
             <div class="header"></div>
             <div class="data">
