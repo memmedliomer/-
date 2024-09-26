@@ -5,21 +5,20 @@ const projectcards = document.querySelector(".projectcards");
 
 // Array of objects for projects
 const projects = [
-  { title: "24th Project", cardImage: "assets/images/project-page/24.png", year: "2024" },
-  { title: "23rd Project", cardImage: "assets/images/project-page/23.png", year: "2024" },
-  { title: "22nd Project", cardImage: "assets/images/project-page/22.png", year: "2024" },
-  { title: "21st Project", cardImage: "assets/images/project-page/21.png", year: "2024" },
+  { title: "22th Project", cardImage: "assets/images/project-page/24.png", year: "2024" },
+  { title: "21rd Project", cardImage: "assets/images/project-page/23.png", year: "2024" },
+  { title: "20nd Project", cardImage: "assets/images/project-page/22.png", year: "2024" },
+  { title: "19st Project", cardImage: "assets/images/project-page/21.png", year: "2024" },
   
-  { title: "20th Project", cardImage: "assets/images/project-page/20.png", year: "2023" },
-  { title: "19th Project", cardImage: "assets/images/project-page/19.png", year: "2023" },
-  { title: "18th Project", cardImage: "assets/images/project-page/18.png", year: "2023" },
-  { title: "17th Project", cardImage: "assets/images/project-page/17.png", year: "2023" },
-  { title: "16th Project", cardImage: "assets/images/project-page/16.png", year: "2023" },
-  { title: "15th Project", cardImage: "assets/images/project-page/15.png", year: "2023" },
-  { title: "14th Project", cardImage: "assets/images/project-page/14.png", year: "2023" },
-  { title: "13th Project", cardImage: "assets/images/project-page/13.png", year: "2023" },
+  { title: "18th Project", cardImage: "assets/images/project-page/20.png", year: "2023" },
+  { title: "17th Project", cardImage: "assets/images/project-page/19.png", year: "2023" },
+  { title: "16th Project", cardImage: "assets/images/project-page/18.png", year: "2023" },
+  { title: "15th Project", cardImage: "assets/images/project-page/17.png", year: "2023" },
+  { title: "14th Project", cardImage: "assets/images/project-page/16.png", year: "2023" },
+  { title: "13th Project", cardImage: "assets/images/project-page/15.png", year: "2023" },
+  { title: "12th Project", cardImage: "assets/images/project-page/14.png", year: "2023" },
   
-  { title: "12th Project", cardImage: "assets/images/project-page/12.png", year: "2022" },
+  
   { title: "11th Project", cardImage: "assets/images/project-page/11.png", year: "2022" },
   { title: "10th Project", cardImage: "assets/images/project-page/10.png", year: "2022" },
   { title: "9th Project", cardImage: "assets/images/project-page/9.png", year: "2022" },
@@ -46,7 +45,7 @@ const showCards = () => {
   const renderProjectsForYear = (year, projects) => {
     output += `
       <div style="width: 100%; text-align: center; margin: 50px 0;">
-        <h1 style="font-size: 36px; color: white;">${year}</h1>
+        <h1 style="font-weight: bold;">${year}</h1>
       </div>`;
 
     projects.forEach(({ title, cardImage }) => {
