@@ -5,35 +5,35 @@ const projectcards = document.querySelector(".projectcards");
 
 // Array of objects for projects
 const projects = [
-  { title: "22th Project", cardImage: "assets/images/project-page/22.png", year: "2024" },
-  { title: "21rd Project", cardImage: "assets/images/project-page/21.png", year: "2024" },
-  { title: "20nd Project", cardImage: "assets/images/project-page/20.png", year: "2024" },
-  { title: "19st Project", cardImage: "assets/images/project-page/19.png", year: "2024" },
+  { title: "Gənc Proqramçılar\n    Müsabiqəsi", cardImage: "assets/images/project-page/22.png", year: "2024" },
+  { title: "İTi Zəka Hakaton\n      Finalistlik", cardImage: "assets/images/project-page/21.png", year: "2024" },
+  { title: "İDDA Cup Finalistlik", cardImage: "assets/images/project-page/20.png", year: "2024" },
+  { title: "Aerokosmik Modelçilik\n  FEstivalı İştirakı", cardImage: "assets/images/project-page/19.png", year: "2024" },
   
-  { title: "18th Project", cardImage: "assets/images/project-page/18.png", year: "2023" },
-  { title: "17th Project", cardImage: "assets/images/project-page/17.png", year: "2023" },
-  { title: "16th Project", cardImage: "assets/images/project-page/16.png", year: "2023" },
-  { title: "15th Project", cardImage: "assets/images/project-page/15.png", year: "2023" },
-  { title: "14th Project", cardImage: "assets/images/project-page/14.png", year: "2023" },
-  { title: "13th Project", cardImage: "assets/images/project-page/13.png", year: "2023" },
-  { title: "12th Project", cardImage: "assets/images/project-page/12.png", year: "2023" },
+  { title: "Beynəlxalq SAFSTEAM2023\n     III yer", cardImage: "assets/images/project-page/18.png", year: "2023" },
+  { title: "Dünya Robot Olimpiadası\n      Fİnalistik", cardImage: "assets/images/project-page/17.png", year: "2023" },
+  { title: "EAS Üzgüçülük Yarışı\n      III yer", cardImage: "assets/images/project-page/16.png", year: "2023" },
+  { title: "Şosse Velosiped Yarışı\n         II yer", cardImage: "assets/images/project-page/15.png", year: "2023" },
+  { title: "Trek Velosiped Yarışı\n      III yer", cardImage: "assets/images/project-page/14.png", year: "2023" },
+  { title: "7 möhür altında\n   İştirak", cardImage: "assets/images/project-page/13.png", year: "2023" },
+  { title: "500M Velosiped Yarışı\n  IV yer Fərqlənmə", cardImage: "assets/images/project-page/12.png", year: "2023" },
   
-  { title: "11th Project", cardImage: "assets/images/project-page/11.png", year: "2022" },
-  { title: "10th Project", cardImage: "assets/images/project-page/10.png", year: "2022" },
-  { title: "9th Project", cardImage: "assets/images/project-page/9.png", year: "2022" },
+  { title: "Tədbirlərdə Fəal\n    İştirak", cardImage: "assets/images/project-page/11.png", year: "2022" },
+  { title: "Beynəlxalq STEM Olimpiadası\n              Dijital III yer", cardImage: "assets/images/project-page/10.png", year: "2022" },
+  { title: "Kimya və Yaşam konferansı\n  Çıxışçı", cardImage: "assets/images/project-page/9.png", year: "2022" },
   
-  { title: "8th Project", cardImage: "assets/images/project-page/8.png", year: "2021" },
-  { title: "7th Project", cardImage: "assets/images/project-page/7.png", year: "2021" },
-  { title: "6th Project", cardImage: "assets/images/project-page/6.png", year: "2021" },
-  { title: "5th Project", cardImage: "assets/images/project-page/5.png", year: "2021" },
+  { title: "Kenquru Müsabiqəsi\n    İştirak", cardImage: "assets/images/project-page/8.png", year: "2021" },
+  { title: "Tədbirdə İştirak", cardImage: "assets/images/project-page/7.png", year: "2021" },
+  { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/6.png", year: "2021" },
+  { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/5.png", year: "2021" },
   
-  { title: "4th Project", cardImage: "assets/images/project-page/4.png", year: "2020" },
+  { title: "Mars Academy\n  Uğurlu tamamlama", cardImage: "assets/images/project-page/4.png", year: "2020" },
   
-  { title: "3rd Project", cardImage: "assets/images/project-page/3.png", year: "2019" },
+  { title: "4-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/3.png", year: "2019" },
   
-  { title: "2nd Project", cardImage: "assets/images/project-page/2.png", year: "2017" },
+  { title: "2-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/2.png", year: "2017" },
   
-  { title: "1st Project", cardImage: "assets/images/project-page/1.png", year: "2015" },
+  { title: "Məktəbəqədər\n  Uğurla bitirmə ", cardImage: "assets/images/project-page/1.png", year: "2015" },
 ];
 
 // Function for rendering project cards data
