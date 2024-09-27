@@ -33,7 +33,7 @@ const projects = [
   
   { title: "2-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/2.png", year: "2017" },
   
-  { title: "Məktəbəqədər\n  Uğurla bitirmə ", cardImage: "assets/images/project-page/1.png", year: "2015" },
+  { title: "Məktəbəqədər \nUğurla bitirmə", cardImage: "assets/images/project-page/1.png", year: "2015" },
 ];
 
 // Function for rendering project cards data
