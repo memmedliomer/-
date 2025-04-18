@@ -5,10 +5,12 @@ const projectcards = document.querySelector(".projectcards");
 
 // Array of objects for projects
 const projects = [
+  { title: "IWISE Olimpiyadası\n    III yer", cardImage: "assets/images/project-page/24.png", year: "2025" },
+  { title: "SAF24\n    II yer", cardImage: "assets/images/project-page/23.png", year: "2024" },
   { title: "Gənc Proqramçılar\n    Müsabiqəsi", cardImage: "assets/images/project-page/22.png", year: "2024" },
   { title: "İTi Zəka Hakaton\n      Finalistlik", cardImage: "assets/images/project-page/21.png", year: "2024" },
   { title: "İDDA Cup Finalistlik", cardImage: "assets/images/project-page/20.png", year: "2024" },
-  { title: "Aerokosmik Modelçilik\n  FEstivalı İştirakı", cardImage: "assets/images/project-page/19.png", year: "2024" },
+  { title: "Aerokosmik Modelçilik\n  Festivalı İştirakı", cardImage: "assets/images/project-page/19.png", year: "2024" },
   
   { title: "Beynəlxalq SAFSTEAM2023\n     III yer", cardImage: "assets/images/project-page/18.png", year: "2023" },
   { title: "Dünya Robot Olimpiadası\n      Fİnalistik", cardImage: "assets/images/project-page/17.png", year: "2023" },
@@ -68,6 +70,7 @@ const showCards = () => {
   };
 
   // Render projects by year
+  renderProjectsForYear("2025", projects.filter(p => p.year === "2025"));
   renderProjectsForYear("2024", projects.filter(p => p.year === "2024"));
   renderProjectsForYear("2023", projects.filter(p => p.year === "2023"));
   renderProjectsForYear("2022", projects.filter(p => p.year === "2022"));
