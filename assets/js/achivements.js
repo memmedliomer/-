@@ -5,8 +5,8 @@ const projectcards = document.querySelector(".projectcards");
 
 // Array of objects for projects
 const projects = [
-  { title: "IWISE Olimpiyadası\n    III yer", cardImage: "assets/images/project-page/25.png", year: "2025" },
-  { title: "SAF24\n    II yer", cardImage: "assets/images/project-page/24.png", year: "2024" },
+  { title: "IWISE Olimpiyadası\n    III yer", cardImage: "assets/images/project-page/26.png", year: "2025" },
+  { title: "SAF24\n    II yer", cardImage: "assets/images/project-page/25.png", year: "2024" },
   { title: "Gənc Proqramçılar\n    Müsabiqəsi", cardImage: "assets/images/project-page/22.png", year: "2024" },
   { title: "İTi Zəka Hakaton\n      Finalistlik", cardImage: "assets/images/project-page/21.png", year: "2024" },
   { title: "İDDA Cup Finalistlik", cardImage: "assets/images/project-page/20.png", year: "2024" },
