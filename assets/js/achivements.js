@@ -57,6 +57,13 @@ const createProjectCard = ({ title, cardImage }) => {
   cardTitle.style.whiteSpace = "pre-line"; // Respects newline characters in the title
   cardTitle.textContent = title;
 
+  // === YENİ EKLENEN STİLLER ===
+  cardTitle.style.color = "#000000"; // Yazı rengini tam siyah yapar
+  cardTitle.style.fontWeight = "bold"; // Yazıyı kalınlaştırır
+  // İsteğe bağlı: Yazı tipi boyutunu biraz artırmak isterseniz aşağıdaki satırı aktifleştirin
+  // cardTitle.style.fontSize = "1.1rem";
+  // === /YENİ EKLENEN STİLLER ===
+
   cardBody.appendChild(cardTitle);
   cardDiv.appendChild(img);
   cardDiv.appendChild(cardBody);
@@ -179,5 +186,3 @@ if (searchInput) {
     }
   });
 }
-
-gemini
