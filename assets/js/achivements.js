@@ -7,6 +7,7 @@ const projectcards = document.querySelector(".projectcards");
 const projects = [
   { title: "Milli Hakaton\n    Seçim Mərhələsi uğurla tamamlama!", cardImage: "assets/images/project-page/27.png", year: "2025" },
   { title: "IWISE Olimpiyadası\n    III yer", cardImage: "assets/images/project-page/26.png", year: "2025" },
+  { title: "STEAM-7\n    Sərgi çıxışçısı.", cardImage: "assets/images/project-page/28.png", year: "2025" },
   { title: "SAF24\n    II yer", cardImage: "assets/images/project-page/25.png", year: "2024" },
   { title: "Gənc Proqramçılar\n    Müsabiqəsi", cardImage: "assets/images/project-page/22.png", year: "2024" },
   { title: "İTi Zəka Hakaton\n      Finalistlik", cardImage: "assets/images/project-page/21.png", year: "2024" },
