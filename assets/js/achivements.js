@@ -1,7 +1,7 @@
 AOS.init();
-/* Project Card */
 
-const projectcards = document.querySelector(".projectcards");
+/* Project Card */
+const projectcardsContainer = document.querySelector(".projectcards"); // Renamed for clarity
 
 // Array of objects for projects
 const projects = [
@@ -13,7 +13,6 @@ const projects = [
   { title: "İTi Zəka Hakaton\n      Finalistlik", cardImage: "assets/images/project-page/21.png", year: "2024" },
   { title: "İDDA Cup Finalistlik", cardImage: "assets/images/project-page/20.png", year: "2024" },
   { title: "Aerokosmik Modelçilik\n  Festivalı İştirakı", cardImage: "assets/images/project-page/19.png", year: "2024" },
-  
   { title: "Beynəlxalq SAFSTEAM2023\n     III yer", cardImage: "assets/images/project-page/18.png", year: "2023" },
   { title: "Dünya Robot Olimpiadası\n      Fİnalistik", cardImage: "assets/images/project-page/17.png", year: "2023" },
   { title: "EAS Üzgüçülük Yarışı\n      III yer", cardImage: "assets/images/project-page/16.png", year: "2023" },
@@ -21,88 +20,162 @@ const projects = [
   { title: "Trek Velosiped Yarışı\n      III yer", cardImage: "assets/images/project-page/14.png", year: "2023" },
   { title: "7 möhür altında\n   İştirak", cardImage: "assets/images/project-page/13.png", year: "2023" },
   { title: "500M Velosiped Yarışı\n  IV yer Fərqlənmə", cardImage: "assets/images/project-page/12.png", year: "2023" },
-  
   { title: "Tədbirlərdə Fəal\n    İştirak", cardImage: "assets/images/project-page/11.png", year: "2022" },
   { title: "Beynəlxalq STEM Olimpiadası\n              Dijital III yer", cardImage: "assets/images/project-page/10.png", year: "2022" },
   { title: "Kimya və Yaşam konferansı\n  Çıxışçı", cardImage: "assets/images/project-page/9.png", year: "2022" },
-  
   { title: "Kenquru Müsabiqəsi\n    İştirak", cardImage: "assets/images/project-page/8.png", year: "2021" },
   { title: "Tədbirdə İştirak", cardImage: "assets/images/project-page/7.png", year: "2021" },
   { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/6.png", year: "2021" },
   { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/5.png", year: "2021" },
-  
   { title: "Mars Academy\n  Uğurlu tamamlama", cardImage: "assets/images/project-page/4.png", year: "2020" },
-  
   { title: "4-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/3.png", year: "2019" },
-  
   { title: "2-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/2.png", year: "2017" },
-  
   { title: "Məktəbəqədər \nUğurla bitirmə", cardImage: "assets/images/project-page/1.png", year: "2015" },
 ];
 
+// Function to create a single project card element
+const createProjectCard = ({ title, cardImage }) => {
+  const colDiv = document.createElement("div");
+  // Assuming you use Bootstrap or a similar grid system. Adjust classes as needed.
+  colDiv.className = "col-lg-4 col-md-6 col-sm-12 mb-4"; // mb-4 for margin-bottom
+
+  const cardDiv = document.createElement("div");
+  cardDiv.className = "card project-card h-100"; // 'project-card' for specific targeting, h-100 for equal height if desired
+  cardDiv.setAttribute("data-aos", "fade-up"); // Keep your AOS animation
+
+  const img = document.createElement("img");
+  img.src = cardImage;
+  img.alt = title.split('\n')[0].trim(); // Use the first line of the title as alt text
+  img.className = "card-img-top";
+  img.loading = "lazy"; // CRITICAL: Native lazy loading for images
+
+  const cardBody = document.createElement("div");
+  cardBody.className = "card-body";
+
+  const cardTitle = document.createElement("h5");
+  cardTitle.className = "card-title title"; // Keep 'title' class for your search function
+  cardTitle.style.whiteSpace = "pre-line"; // Respects newline characters in the title
+  cardTitle.textContent = title;
+
+  cardBody.appendChild(cardTitle);
+  cardDiv.appendChild(img);
+  cardDiv.appendChild(cardBody);
+  colDiv.appendChild(cardDiv);
+
+  return colDiv;
+};
+
 // Function for rendering project cards data
 const showCards = () => {
-  let output = `
-    <div style="width: 100%; text-align: center; margin: 20px 0;">
-      <h1 style="font-weight: bold;">My Achivements🏆</h1>
-    </div>`; // Added My Projects header
+  if (!projectcardsContainer) {
+    console.error("Element with class 'projectcards' not found.");
+    return;
+  }
 
-  // Function to group projects by year and render them
-  const renderProjectsForYear = (year, projects) => {
-    output += `
-      <div style="width: 100%; text-align: center; margin: 50px 0;">
-        <h1 style="font-weight: bold;">${year}</h1>
-      </div>`;
+  // Use a DocumentFragment for better performance when adding multiple elements
+  const fragment = document.createDocumentFragment();
 
-    projects.forEach(({ title, cardImage }) => {
-      output += `       
-        <div class="column skill-card card" style="margin: 15px" data-aos="zoom-in-up" data-aos-easing="linear" data-aos-delay="300" data-aos-duration="600">
-          <div class="wrapper" style="background: url(${cardImage}) center / cover no-repeat;">
-            <div class="header"></div>
-            <div class="data">
-              <div class="content">
-                <div class="title-div">
-                  <h1 class="title"><a href="#">${title}</a></h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>`;
+  // Add "My Achievements" header
+  const mainHeader = document.createElement("h1");
+  // Adjust classes based on your styling framework (e.g., Bootstrap)
+  mainHeader.className = "col-12 text-center text-uppercase my-4";
+  mainHeader.textContent = "My Achievements 🏆";
+  fragment.appendChild(mainHeader);
+
+  // Group projects by year
+  const projectsByYear = projects.reduce((acc, project) => {
+    if (!acc[project.year]) {
+      acc[project.year] = [];
+    }
+    acc[project.year].push(project);
+    return acc;
+  }, {});
+
+  // Get sorted years in descending order
+  const sortedYears = Object.keys(projectsByYear).sort((a, b) => b - a);
+
+  // Render projects for each year
+  sortedYears.forEach(year => {
+    const yearSectionContainer = document.createElement("div");
+    yearSectionContainer.className = "year-section mb-5"; // Container for a year's projects
+
+    const yearHeader = document.createElement("h2");
+    yearHeader.className = "text-center year-title mb-4"; // Styling for the year
+    yearHeader.textContent = year;
+    yearSectionContainer.appendChild(yearHeader);
+
+    const yearProjectsRow = document.createElement("div");
+    yearProjectsRow.className = "row justify-content-center"; // Bootstrap row for cards
+
+    projectsByYear[year].forEach(project => {
+      const cardElement = createProjectCard(project);
+      yearProjectsRow.appendChild(cardElement);
     });
-  };
 
-  // Render projects by year
-  renderProjectsForYear("2025", projects.filter(p => p.year === "2025"));
-  renderProjectsForYear("2024", projects.filter(p => p.year === "2024"));
-  renderProjectsForYear("2023", projects.filter(p => p.year === "2023"));
-  renderProjectsForYear("2022", projects.filter(p => p.year === "2022"));
-  renderProjectsForYear("2021", projects.filter(p => p.year === "2021"));
-  renderProjectsForYear("2020", projects.filter(p => p.year === "2020"));
-  renderProjectsForYear("2019", projects.filter(p => p.year === "2019"));
-  renderProjectsForYear("2017", projects.filter(p => p.year === "2017"));
-  renderProjectsForYear("2015", projects.filter(p => p.year === "2015"));
+    yearSectionContainer.appendChild(yearProjectsRow);
+    fragment.appendChild(yearSectionContainer);
+  });
 
-  projectcards.innerHTML = output;
+  // Clear previous content and append the new fragment once
+  projectcardsContainer.innerHTML = "";
+  projectcardsContainer.appendChild(fragment);
 };
 
 document.addEventListener("DOMContentLoaded", showCards);
 
-function myFunction() {
-  // Declare variables
-  var input, button, i, skillcard, card, title;
-  input = document.getElementById("myInput").value;
-  input = input.toUpperCase();
-  card = document.getElementsByClassName("card");
-  title = document.getElementsByClassName("title");
+// Debounce function to limit the rate at which a function can fire.
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
 
-  // Loop through all cards, and hide those who don't match the search query
-  for (i = 0; i < card.length; i++) {
-    if (
-      title[i].innerHTML.toUpperCase().includes(input)
-    ) {
-      card[i].style.display = "";
-    } else {
-      card[i].style.display = "none";
+// Optimized search function
+function myFunction() {
+  const inputElement = document.getElementById("myInput");
+  if (!inputElement) {
+    console.error("Input element with ID 'myInput' not found.");
+    return;
+  }
+  const filterText = inputElement.value.toUpperCase();
+  
+  // Get all project cards. Ensure 'project-card' class is on the card element itself.
+  const cards = projectcardsContainer.getElementsByClassName("project-card");
+
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+    const titleElement = card.querySelector(".title"); // Get title within the current card
+    
+    if (titleElement) {
+      const titleText = titleElement.textContent || titleElement.innerText;
+      // The card's parent is the column div (e.g., .col-lg-4)
+      // We hide/show the column div to maintain layout structure.
+      const columnWrapper = card.parentElement; 
+      if (columnWrapper) { // Check if parentElement exists
+          if (titleText.toUpperCase().includes(filterText)) {
+            columnWrapper.style.display = "";
+          } else {
+            columnWrapper.style.display = "none";
+          }
+      }
     }
   }
+}
+
+// Add debounced event listener for the search input
+const searchInput = document.getElementById("myInput");
+if (searchInput) {
+  searchInput.addEventListener("keyup", debounce(myFunction, 300)); // 300ms delay
+} else {
+  // Fallback if script runs before 'myInput' is in DOM (though DOMContentLoaded should handle showCards)
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputElem = document.getElementById("myInput");
+    if (inputElem) {
+      inputElem.addEventListener("keyup", debounce(myFunction, 300));
+    } else {
+      console.warn("Search input with ID 'myInput' was not found.");
+    }
+  });
 }
