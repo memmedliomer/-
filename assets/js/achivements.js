@@ -1,120 +1,183 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".projectcards");
+AOS.init();
+
+/* Project Card */
+const projectcardsContainer = document.querySelector(".projectcards"); // Renamed for clarity
+
+// Array of objects for projects
+const projects = [
+  { title: "Milli Hakaton\n    Seçim Mərhələsi uğurla tamamlama!", cardImage: "assets/images/project-page/27.png", year: "2025" },
+  { title: "IWISE Olimpiyadası\n    III yer", cardImage: "assets/images/project-page/26.png", year: "2025" },
+  { title: "STEAM-7\n    Sərgi çıxışçısı.", cardImage: "assets/images/project-page/28.png", year: "2025" },
+  { title: "SAF24\n    II yer", cardImage: "assets/images/project-page/25.png", year: "2024" },
+  { title: "Gənc Proqramçılar\n    Müsabiqəsi", cardImage: "assets/images/project-page/22.png", year: "2024" },
+  { title: "İTi Zəka Hakaton\n      Finalistlik", cardImage: "assets/images/project-page/21.png", year: "2024" },
+  { title: "İDDA Cup Finalistlik", cardImage: "assets/images/project-page/20.png", year: "2024" },
+  { title: "Aerokosmik Modelçilik\n  Festivalı İştirakı", cardImage: "assets/images/project-page/19.png", year: "2024" },
+  { title: "Beynəlxalq SAFSTEAM2023\n     III yer", cardImage: "assets/images/project-page/18.png", year: "2023" },
+  { title: "Dünya Robot Olimpiadası\n      Fİnalistik", cardImage: "assets/images/project-page/17.png", year: "2023" },
+  { title: "EAS Üzgüçülük Yarışı\n      III yer", cardImage: "assets/images/project-page/16.png", year: "2023" },
+  { title: "Şosse Velosiped Yarışı\n         II yer", cardImage: "assets/images/project-page/15.png", year: "2023" },
+  { title: "Trek Velosiped Yarışı\n      III yer", cardImage: "assets/images/project-page/14.png", year: "2023" },
+  { title: "7 möhür altında\n   İştirak", cardImage: "assets/images/project-page/13.png", year: "2023" },
+  { title: "500M Velosiped Yarışı\n  IV yer Fərqlənmə", cardImage: "assets/images/project-page/12.png", year: "2023" },
+  { title: "Tədbirlərdə Fəal\n    İştirak", cardImage: "assets/images/project-page/11.png", year: "2022" },
+  { title: "Beynəlxalq STEM Olimpiadası\n              Dijital III yer", cardImage: "assets/images/project-page/10.png", year: "2022" },
+  { title: "Kimya və Yaşam konferansı\n  Çıxışçı", cardImage: "assets/images/project-page/9.png", year: "2022" },
+  { title: "Kenquru Müsabiqəsi\n    İştirak", cardImage: "assets/images/project-page/8.png", year: "2021" },
+  { title: "Tədbirdə İştirak", cardImage: "assets/images/project-page/7.png", year: "2021" },
+  { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/6.png", year: "2021" },
+  { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/5.png", year: "2021" },
+  { title: "Mars Academy\n  Uğurlu tamamlama", cardImage: "assets/images/project-page/4.png", year: "2020" },
+  { title: "4-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/3.png", year: "2019" },
+  { title: "2-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/2.png", year: "2017" },
+  { title: "Məktəbəqədər \nUğurla bitirmə", cardImage: "assets/images/project-page/1.png", year: "2015" },
+];
+
+// Function to create a single project card element
+const createProjectCard = ({ title, cardImage }) => {
+  const colDiv = document.createElement("div");
+  // Assuming you use Bootstrap or a similar grid system. Adjust classes as needed.
+  colDiv.className = "col-lg-4 col-md-6 col-sm-12 mb-4"; // mb-4 for margin-bottom
+
+  const cardDiv = document.createElement("div");
+  cardDiv.className = "card project-card h-100"; // 'project-card' for specific targeting, h-100 for equal height if desired
+  cardDiv.setAttribute("data-aos", "fade-up"); // Keep your AOS animation
+
+  const img = document.createElement("img");
+  img.src = cardImage;
+  img.alt = title.split('\n')[0].trim(); // Use the first line of the title as alt text
+  img.className = "card-img-top";
+  img.loading = "lazy"; // CRITICAL: Native lazy loading for images
+
+  const cardBody = document.createElement("div");
+  cardBody.className = "card-body";
+
+  const cardTitle = document.createElement("h5");
+  cardTitle.className = "card-title title"; // Keep 'title' class for your search function
+  cardTitle.style.whiteSpace = "pre-line"; // Respects newline characters in the title
+  cardTitle.textContent = title;
+
+  cardBody.appendChild(cardTitle);
+  cardDiv.appendChild(img);
+  cardDiv.appendChild(cardBody);
+  colDiv.appendChild(cardDiv);
+
+  return colDiv;
+};
+
+// Function for rendering project cards data
+const showCards = () => {
+  if (!projectcardsContainer) {
+    console.error("Element with class 'projectcards' not found.");
+    return;
+  }
+
+  // Use a DocumentFragment for better performance when adding multiple elements
   const fragment = document.createDocumentFragment();
 
-  // Header section
-  const headerDiv = document.createElement("div");
-  headerDiv.style.width = "100%";
-  headerDiv.style.textAlign = "center";
-  headerDiv.style.margin = "20px 0";
+  // Add "My Achievements" header
+  const mainHeader = document.createElement("h1");
+  // Adjust classes based on your styling framework (e.g., Bootstrap)
+  mainHeader.className = "col-12 text-center text-uppercase my-4";
+  mainHeader.textContent = "My Achievements 🏆";
+  fragment.appendChild(mainHeader);
 
-  const headerH1 = document.createElement("h1");
-  headerH1.style.fontWeight = "bold";
-  headerH1.textContent = "My Achivements🏆";
-  headerDiv.appendChild(headerH1);
-  fragment.appendChild(headerDiv);
-
-  // Group projects by year programmatically (you no longer need manual filtering)
-  const projects = [
-    { title: "Milli Hakaton\n    Seçim Mərhələsi uğurla tamamlama!", cardImage: "assets/images/project-page/27.png", year: "2025" },
-    { title: "IWISE Olimpiyadası\n    III yer", cardImage: "assets/images/project-page/26.png", year: "2025" },
-    { title: "STEAM-7\n    Sərgi çıxışçısı.", cardImage: "assets/images/project-page/28.png", year: "2025" },
-    { title: "SAF24\n    II yer", cardImage: "assets/images/project-page/25.png", year: "2024" },
-    { title: "Gənc Proqramçılar\n    Müsabiqəsi", cardImage: "assets/images/project-page/22.png", year: "2024" },
-    { title: "İTi Zəka Hakaton\n      Finalistlik", cardImage: "assets/images/project-page/21.png", year: "2024" },
-    { title: "İDDA Cup Finalistlik", cardImage: "assets/images/project-page/20.png", year: "2024" },
-    { title: "Aerokosmik Modelçilik\n  Festivalı İştirakı", cardImage: "assets/images/project-page/19.png", year: "2024" },
-    { title: "Beynəlxalq SAFSTEAM2023\n     III yer", cardImage: "assets/images/project-page/18.png", year: "2023" },
-    { title: "Dünya Robot Olimpiadası\n      Fİnalistik", cardImage: "assets/images/project-page/17.png", year: "2023" },
-    { title: "EAS Üzgüçülük Yarışı\n      III yer", cardImage: "assets/images/project-page/16.png", year: "2023" },
-    { title: "Şosse Velosiped Yarışı\n         II yer", cardImage: "assets/images/project-page/15.png", year: "2023" },
-    { title: "Trek Velosiped Yarışı\n      III yer", cardImage: "assets/images/project-page/14.png", year: "2023" },
-    { title: "7 möhür altında\n   İştirak", cardImage: "assets/images/project-page/13.png", year: "2023" },
-    { title: "500M Velosiped Yarışı\n  IV yer Fərqlənmə", cardImage: "assets/images/project-page/12.png", year: "2023" },
-    { title: "Tədbirlərdə Fəal\n    İştirak", cardImage: "assets/images/project-page/11.png", year: "2022" },
-    { title: "Beynəlxalq STEM Olimpiadası\n              Dijital III yer", cardImage: "assets/images/project-page/10.png", year: "2022" },
-    { title: "Kimya və Yaşam konferansı\n  Çıxışçı", cardImage: "assets/images/project-page/9.png", year: "2022" },
-    { title: "Kenquru Müsabiqəsi\n    İştirak", cardImage: "assets/images/project-page/8.png", year: "2021" },
-    { title: "Tədbirdə İştirak", cardImage: "assets/images/project-page/7.png", year: "2021" },
-    { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/6.png", year: "2021" },
-    { title: "Zəfər Kursları\n  Sınaq yüksək nəticə", cardImage: "assets/images/project-page/5.png", year: "2021" },
-    { title: "Mars Academy\n  Uğurlu tamamlama", cardImage: "assets/images/project-page/4.png", year: "2020" },
-    { title: "4-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/3.png", year: "2019" },
-    { title: "2-cü Sinif\n  Uğurla bitirmə", cardImage: "assets/images/project-page/2.png", year: "2017" },
-    { title: "Məktəbəqədər \nUğurla bitirmə", cardImage: "assets/images/project-page/1.png", year: "2015" },
-  ];
-
-  // Create a grouped object of projects by year
-  const groupedProjects = projects.reduce((acc, project) => {
-    (acc[project.year] = acc[project.year] || []).push(project);
+  // Group projects by year
+  const projectsByYear = projects.reduce((acc, project) => {
+    if (!acc[project.year]) {
+      acc[project.year] = [];
+    }
+    acc[project.year].push(project);
     return acc;
   }, {});
 
-  // Optionally, sort the years descending
-  const sortedYears = Object.keys(groupedProjects).sort((a, b) => b - a);
+  // Get sorted years in descending order
+  const sortedYears = Object.keys(projectsByYear).sort((a, b) => b - a);
 
-  // Render the groups
-  sortedYears.forEach((year) => {
-    // Year header
-    const yearHeader = document.createElement("div");
-    yearHeader.style.width = "100%";
-    yearHeader.style.textAlign = "center";
-    yearHeader.style.margin = "50px 0";
+  // Render projects for each year
+  sortedYears.forEach(year => {
+    const yearSectionContainer = document.createElement("div");
+    yearSectionContainer.className = "year-section mb-5"; // Container for a year's projects
 
-    const yearH1 = document.createElement("h1");
-    yearH1.style.fontWeight = "bold";
-    yearH1.textContent = year;
-    yearHeader.appendChild(yearH1);
-    fragment.appendChild(yearHeader);
+    const yearHeader = document.createElement("h2");
+    yearHeader.className = "text-center year-title mb-4"; // Styling for the year
+    yearHeader.textContent = year;
+    yearSectionContainer.appendChild(yearHeader);
 
-    // Render each project for the year
-    groupedProjects[year].forEach((project) => {
-      const card = document.createElement("div");
-      card.className = "column skill-card card";
-      card.style.margin = "15px";
-      card.dataset.aos = "zoom-in-up";
-      card.dataset.aosEasing = "linear";
-      card.dataset.aosDelay = "300";
-      card.dataset.aosDuration = "600";
+    const yearProjectsRow = document.createElement("div");
+    yearProjectsRow.className = "row justify-content-center"; // Bootstrap row for cards
 
-      const wrapper = document.createElement("div");
-      wrapper.className = "wrapper";
-      // Use inline background image for now or consider switching to an <img> tag with lazy loading
-      wrapper.style.background = `url(${project.cardImage}) center / cover no-repeat`;
-
-      // Create inner elements
-      const headerDiv = document.createElement("div");
-      headerDiv.className = "header";
-
-      const dataDiv = document.createElement("div");
-      dataDiv.className = "data";
-
-      const contentDiv = document.createElement("div");
-      contentDiv.className = "content";
-
-      const titleDiv = document.createElement("div");
-      titleDiv.className = "title-div";
-
-      const hTitle = document.createElement("h1");
-      hTitle.className = "title";
-
-      const a = document.createElement("a");
-      a.href = "#";
-      a.textContent = project.title;
-
-      hTitle.appendChild(a);
-      titleDiv.appendChild(hTitle);
-      contentDiv.appendChild(titleDiv);
-      dataDiv.appendChild(contentDiv);
-      wrapper.appendChild(headerDiv);
-      wrapper.appendChild(dataDiv);
-      card.appendChild(wrapper);
-      fragment.appendChild(card);
+    projectsByYear[year].forEach(project => {
+      const cardElement = createProjectCard(project);
+      yearProjectsRow.appendChild(cardElement);
     });
+
+    yearSectionContainer.appendChild(yearProjectsRow);
+    fragment.appendChild(yearSectionContainer);
   });
 
-  container.appendChild(fragment);
+  // Clear previous content and append the new fragment once
+  projectcardsContainer.innerHTML = "";
+  projectcardsContainer.appendChild(fragment);
+};
 
-  // Refresh AOS once content is loaded
-  AOS.refresh();
-});
+document.addEventListener("DOMContentLoaded", showCards);
+
+// Debounce function to limit the rate at which a function can fire.
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+// Optimized search function
+function myFunction() {
+  const inputElement = document.getElementById("myInput");
+  if (!inputElement) {
+    console.error("Input element with ID 'myInput' not found.");
+    return;
+  }
+  const filterText = inputElement.value.toUpperCase();
+  
+  // Get all project cards. Ensure 'project-card' class is on the card element itself.
+  const cards = projectcardsContainer.getElementsByClassName("project-card");
+
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+    const titleElement = card.querySelector(".title"); // Get title within the current card
+    
+    if (titleElement) {
+      const titleText = titleElement.textContent || titleElement.innerText;
+      // The card's parent is the column div (e.g., .col-lg-4)
+      // We hide/show the column div to maintain layout structure.
+      const columnWrapper = card.parentElement; 
+      if (columnWrapper) { // Check if parentElement exists
+          if (titleText.toUpperCase().includes(filterText)) {
+            columnWrapper.style.display = "";
+          } else {
+            columnWrapper.style.display = "none";
+          }
+      }
+    }
+  }
+}
+
+// Add debounced event listener for the search input
+const searchInput = document.getElementById("myInput");
+if (searchInput) {
+  searchInput.addEventListener("keyup", debounce(myFunction, 300)); // 300ms delay
+} else {
+  // Fallback if script runs before 'myInput' is in DOM (though DOMContentLoaded should handle showCards)
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputElem = document.getElementById("myInput");
+    if (inputElem) {
+      inputElem.addEventListener("keyup", debounce(myFunction, 300));
+    } else {
+      console.warn("Search input with ID 'myInput' was not found.");
+    }
+  });
+}
+
+gemini
