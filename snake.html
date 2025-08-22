@@ -60,11 +60,20 @@
         }
         .game-controls button:active { background: rgba(0, 204, 255, 0.2); transform: scale(0.95); }
         .mobile-controls { display: none; margin-top: 15px; }
+        
+        /* --- BU BÖLÜM DEĞİŞTİRİLDİ --- */
         .mobile-controls button {
             background: transparent; border: 2px solid #00ff88; color: #00ff88;
-            font-size: 1.6rem; width: 55px; height: 55px; border-radius: 50%; margin: 4px;
-            cursor: pointer; transition: all 0.2s ease;
+            font-size: 1.8rem; /* Büyütüldü */
+            width: 65px;       /* Büyütüldü */
+            height: 65px;      /* Büyütüldü */
+            border-radius: 50%; 
+            margin: 8px;       /* Mesafe artırıldı */
+            cursor: pointer; 
+            transition: all 0.2s ease;
         }
+        /* --- DEĞİŞİKLİK SONU --- */
+
         .mobile-controls button:active { background: rgba(0, 255, 136, 0.2); transform: scale(0.95); }
         .ctrl-row { display: flex; justify-content: center; }
         .play-btn {
@@ -80,7 +89,7 @@
             #score, #high-score { font-size: 1.2rem; }
             .mobile-controls { display: block; }
             .game-controls { margin-top: 15px; }
-            .game-controls button, .mobile-controls button { width: 50px; height: 50px; font-size: 1.4rem; }
+            .game-controls button { width: 50px; height: 50px; font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -137,8 +146,8 @@
         const gameOverSound = new Audio('game_over.mp3');
 
         const gridSize = 20;
-        const baseSpeed = 160; // Hız düşürüldü (sayı ne kadar yüksekse o kadar yavaş)
-        const speedIncrement = 2; // Hız artışı yavaşlatıldı
+        const baseSpeed = 160;
+        const speedIncrement = 2;
         const minSpeed = 50;
         
         let snake, food, score, highScore, direction, gameInterval, isGameOver, isPaused, gameStarted, currentSpeed;
@@ -203,35 +212,34 @@
             drawGrid();
             snake.forEach((segment, index) => {
                 if (index === 0) {
-                    ctx.fillStyle = '#DC143C'; // Kırmızı baş
+                    ctx.fillStyle = '#DC143C';
                     ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
                     
-                    // Gözleri çiz
-                    ctx.fillStyle = '#000000'; // Siyah gözler
+                    ctx.fillStyle = '#000000';
                     const eyeSize = gridSize / 5;
                     const head = snake[0];
-                    if (direction.y === -gridSize) { // Yukarı
+                    if (direction.y === -gridSize) {
                         ctx.fillRect(head.x + eyeSize, head.y + eyeSize, eyeSize, eyeSize);
                         ctx.fillRect(head.x + 3 * eyeSize, head.y + eyeSize, eyeSize, eyeSize);
-                    } else if (direction.y === gridSize) { // Aşağı
+                    } else if (direction.y === gridSize) {
                         ctx.fillRect(head.x + eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
                         ctx.fillRect(head.x + 3 * eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
-                    } else if (direction.x === -gridSize) { // Sol
+                    } else if (direction.x === -gridSize) {
                         ctx.fillRect(head.x + eyeSize, head.y + eyeSize, eyeSize, eyeSize);
                         ctx.fillRect(head.x + eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
-                    } else if (direction.x === gridSize) { // Sağ
+                    } else if (direction.x === gridSize) {
                         ctx.fillRect(head.x + 3 * eyeSize, head.y + eyeSize, eyeSize, eyeSize);
                         ctx.fillRect(head.x + 3 * eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
-                    } else { // Başlangıçta (hareketsizken)
+                    } else {
                          ctx.fillRect(head.x + eyeSize, head.y + eyeSize, eyeSize, eyeSize);
                          ctx.fillRect(head.x + 3 * eyeSize, head.y + eyeSize, eyeSize, eyeSize);
                     }
                 } else {
-                    ctx.fillStyle = '#1E90FF'; // Mavi gövde
+                    ctx.fillStyle = '#1E90FF';
                     ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
                 }
             });
-            ctx.fillStyle = '#7CFC00'; // Yeşil elma
+            ctx.fillStyle = '#7CFC00';
             ctx.shadowColor = '#7CFC00';
             ctx.shadowBlur = 10;
             ctx.fillRect(food.x, food.y, gridSize, gridSize);
