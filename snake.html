@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Snake Game - Omar Mammadli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            padding: 10px;
+        }
+        .back-link {
+            position: absolute; top: 20px; left: 20px; color: #00ff88; text-decoration: none; font-size: 1rem;
+            font-weight: 600; transition: color 0.3s ease; z-index: 10;
+        }
+        .back-link:hover { color: #00ccff; }
+        .game-wrapper { text-align: center; }
+        .game-header {
+            width: 100%; max-width: 500px; display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 20px;
+        }
+        .game-title {
+            font-size: 2.2rem; font-weight: 700; background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+        .scores { text-align: right; }
+        .score-label { font-size: 0.9rem; color: #aaa; }
+        #score, #high-score { font-size: 1.4rem; font-weight: 600; color: #00ff88; }
+        .game-container { position: relative; width: fit-content; }
+        canvas {
+            background: #0a0a0a; border: 2px solid #00ff88; border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.4); display: block;
+        }
+        .game-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; text-align: center;
+            border-radius: 15px; color: #fff; font-size: 3rem; font-weight: 700;
+        }
+        #countdown-overlay { font-size: 5rem; text-shadow: 0 0 20px #00ff88; }
+        .game-controls {
+            display: flex; justify-content: center; gap: 15px; margin-top: 20px;
+        }
+        .game-controls button {
+            background: transparent; border: 2px solid #00ccff; color: #00ccff;
+            font-size: 1.5rem; width: 60px; height: 60px; border-radius: 50%;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .game-controls button:active { background: rgba(0, 204, 255, 0.2); transform: scale(0.95); }
+        .mobile-controls { display: none; margin-top: 15px; }
+        .mobile-controls button {
+            background: transparent; border: 2px solid #00ff88; color: #00ff88;
+            font-size: 1.6rem; width: 55px; height: 55px; border-radius: 50%; margin: 4px;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .mobile-controls button:active { background: rgba(0, 255, 136, 0.2); transform: scale(0.95); }
+        .ctrl-row { display: flex; justify-content: center; }
+        .play-btn {
+            padding: 15px 30px; background: linear-gradient(45deg, #00ff88, #00ccff); border: none;
+            border-radius: 50px; color: #000; font-size: 1.1rem; font-weight: 700;
+            font-family: 'Poppins', sans-serif; text-transform: uppercase; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); text-decoration: none;
+        }
+        .play-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0, 255, 136, 0.6); }
+
+        @media (max-width: 768px) {
+            .game-title { font-size: 1.8rem; }
+            #score, #high-score { font-size: 1.2rem; }
+            .mobile-controls { display: block; }
+            .game-controls { margin-top: 15px; }
+            .game-controls button, .mobile-controls button { width: 50px; height: 50px; font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Geri</a>
+    <div class="game-wrapper">
+        <div class="game-header">
+            <h1 class="game-title">Snake</h1>
+            <div class="scores">
+                <span class="score-label">SCORE</span>: <span id="score">0</span><br>
+                <span class="score-label">HIGH-SCORE</span>: <span id="high-score">0</span>
+            </div>
+        </div>
+        <div class="game-container">
+            <canvas id="gameCanvas"></canvas>
+            <div class="game-overlay" id="gameOverModal">
+                <div>
+                    <h2 style="color: #ff4500; font-size: 2rem;">Game Over</h2>
+                    <p style="font-size: 1.2rem; margin: 10px 0 25px;">Final Score: <span id="finalScore">0</span></p>
+                    <button class="play-btn" id="restartButton">Play Again</button>
+                </div>
+            </div>
+            <div class="game-overlay" id="pauseOverlay">PAUSED</div>
+            <div class="game-overlay" id="countdown-overlay" style="display: flex;">3</div>
+        </div>
+        <div class="game-controls">
+            <button id="pause-btn" title="Pause/Resume"><i class="fas fa-pause"></i></button>
+            <button id="restart-btn-main" title="Restart"><i class="fas fa-redo"></i></button>
+        </div>
+        <div class="mobile-controls">
+            <div class="ctrl-row"><button id="up-btn"><i class="fas fa-arrow-up"></i></button></div>
+            <div class="ctrl-row">
+                <button id="left-btn"><i class="fas fa-arrow-left"></i></button>
+                <button id="down-btn"><i class="fas fa-arrow-down"></i></button>
+                <button id="right-btn"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('high-score');
+        const gameOverModal = document.getElementById('gameOverModal');
+        const finalScoreElement = document.getElementById('finalScore');
+        const restartButton = document.getElementById('restartButton');
+        const pauseButton = document.getElementById('pause-btn');
+        const mainRestartButton = document.getElementById('restart-btn-main');
+        const pauseOverlay = document.getElementById('pauseOverlay');
+        const countdownOverlay = document.getElementById('countdown-overlay');
+
+        const eatSound = new Audio('eat.mp3');
+        const gameOverSound = new Audio('game_over.mp3');
+
+        const gridSize = 20;
+        const baseSpeed = 120;
+        const speedIncrement = 3;
+        const minSpeed = 50;
+        
+        let snake, food, score, highScore, direction, gameInterval, isGameOver, isPaused, gameStarted, currentSpeed;
+
+        const setupCanvas = () => {
+            const maxWidth = Math.min(window.innerWidth * 0.9, 500);
+            canvas.width = Math.floor(maxWidth / gridSize) * gridSize;
+            canvas.height = canvas.width;
+        };
+
+        const startCountdown = () => {
+            countdownOverlay.style.display = 'flex';
+            let count = 3;
+            countdownOverlay.textContent = count;
+
+            const countdownInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownOverlay.textContent = count;
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownOverlay.style.display = 'none';
+                    gameInterval = setInterval(gameLoop, currentSpeed);
+                }
+            }, 700);
+        };
+        
+        const init = () => {
+            if (gameInterval) clearInterval(gameInterval);
+            isGameOver = false;
+            isPaused = false;
+            gameStarted = false;
+            pauseOverlay.style.display = 'none';
+            gameOverModal.style.display = 'none';
+            pauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            
+            snake = [{ x: Math.floor(canvas.width / gridSize / 2) * gridSize, y: Math.floor(canvas.height / gridSize / 2) * gridSize }];
+            direction = { x: 0, y: 0 };
+            score = 0;
+            currentSpeed = baseSpeed;
+            highScore = localStorage.getItem('snakeHighScore') || 0;
+            scoreElement.textContent = score;
+            highScoreElement.textContent = highScore;
+            
+            generateFood();
+            draw(); 
+            startCountdown();
+        };
+
+        const generateFood = () => {
+            food = {
+                x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize,
+                y: Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize
+            };
+            if (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
+                generateFood();
+            }
+        };
+
+        const drawGrid = () => {
+            ctx.strokeStyle = '#222';
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                for (let y = 0; y < canvas.height; y += gridSize) {
+                    ctx.strokeRect(x, y, gridSize, gridSize);
+                }
+            }
+        };
+
+        const draw = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            snake.forEach((segment, index) => {
+                ctx.fillStyle = index === 0 ? '#00ff88' : '#00ccff';
+                ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+            });
+            ctx.fillStyle = '#ff4500';
+            ctx.shadowColor = '#ff4500';
+            ctx.shadowBlur = 10;
+            ctx.fillRect(food.x, food.y, gridSize, gridSize);
+            ctx.shadowBlur = 0;
+        };
+        
+        const update = () => {
+            const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+            if (head.x >= canvas.width || head.x < 0 || head.y >= canvas.height || head.y < 0 || snake.slice(1).some(s => s.x === head.x && s.y === head.y)) {
+                endGame();
+                return;
+            }
+            snake.unshift(head);
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                scoreElement.textContent = score;
+                eatSound.currentTime = 0;
+                eatSound.play();
+                generateFood();
+                
+                currentSpeed = Math.max(minSpeed, currentSpeed - speedIncrement);
+                clearInterval(gameInterval);
+                gameInterval = setInterval(gameLoop, currentSpeed);
+            } else {
+                snake.pop();
+            }
+        };
+        
+        const endGame = () => {
+            isGameOver = true;
+            clearInterval(gameInterval);
+            gameOverSound.play();
+            finalScoreElement.textContent = score;
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('snakeHighScore', highScore);
+                highScoreElement.textContent = highScore;
+            }
+            gameOverModal.style.display = 'flex';
+        };
+
+        const gameLoop = () => {
+            if (isGameOver || isPaused || !gameStarted) return;
+            update();
+            draw();
+        };
+
+        const changeDirection = (dx, dy) => {
+            if(isPaused || isGameOver) return;
+            if (!gameStarted) gameStarted = true;
+            const goingUp = direction.y === -gridSize, goingDown = direction.y === gridSize;
+            const goingLeft = direction.x === -gridSize, goingRight = direction.x === gridSize;
+            if (dy === -1 && !goingDown) direction = { x: 0, y: -gridSize };
+            if (dy === 1 && !goingUp) direction = { x: 0, y: gridSize };
+            if (dx === -1 && !goingRight) direction = { x: -gridSize, y: 0 };
+            if (dx === 1 && !goingLeft) direction = { x: gridSize, y: 0 };
+        };
+        
+        const togglePause = () => {
+            if (isGameOver || !gameStarted) return;
+            isPaused = !isPaused;
+            pauseOverlay.style.display = isPaused ? 'flex' : 'none';
+            pauseButton.innerHTML = isPaused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+        };
+
+        window.addEventListener('keydown', e => {
+            if (e.key === ' ' || e.key === 'p') {
+                e.preventDefault();
+                togglePause();
+            }
+            switch (e.key) {
+                case 'ArrowUp': case 'w': changeDirection(0, -1); break;
+                case 'ArrowDown': case 's': changeDirection(0, 1); break;
+                case 'ArrowLeft': case 'a': changeDirection(-1, 0); break;
+                case 'ArrowRight': case 'd': changeDirection(1, 0); break;
+            }
+        });
+        
+        document.getElementById('up-btn').addEventListener('click', () => changeDirection(0, -1));
+        document.getElementById('down-btn').addEventListener('click', () => changeDirection(0, 1));
+        document.getElementById('left-btn').addEventListener('click', () => changeDirection(-1, 0));
+        document.getElementById('right-btn').addEventListener('click', () => changeDirection(1, 0));
+        
+        restartButton.addEventListener('click', init);
+        mainRestartButton.addEventListener('click', init);
+        pauseButton.addEventListener('click', togglePause);
+        
+        window.addEventListener('resize', () => {
+            setupCanvas();
+            draw();
+        });
+        
+        setupCanvas();
+        init();
+    </script>
+</body>
+</html>
