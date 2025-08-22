@@ -514,86 +514,96 @@
     </div>
 
     <script>
-        // Navbar Toggle
-        document.addEventListener('DOMContentLoaded', () => {
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
+    // Navbar Toggle
+    document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
 
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.textContent = navMenu.classList.contains('active') ? '✖' : '☰';
-            });
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.textContent = navMenu.classList.contains('active') ? '✖' : '☰';
+        });
 
-            navMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        hamburger.textContent = '☰';
-                    }
-                });
-            });
-
-            // Login Form Handler
-            const loginForm = document.getElementById('loginForm');
-            const errorMessage = document.getElementById('errorMessage');
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
-
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const username = usernameInput.value.trim();
-                const password = passwordInput.value.trim();
-                
-                // Check credentials
-                if (username === 'omarmammadli' && password === 'omerCE2009') {
-                    // Success - redirect to 349340.html
-                    window.location.href = '349340.html';
-                } else {
-                    // Show error message
-                    errorMessage.style.display = 'block';
-                    
-                    // Add shake animation to form
-                    loginForm.style.animation = 'shake 0.5s ease-in-out';
-                    
-                    // Clear the animation after it completes
-                    setTimeout(() => {
-                        loginForm.style.animation = '';
-                    }, 500);
-                    
-                    // Hide error message after 5 seconds
-                    setTimeout(() => {
-                        errorMessage.style.display = 'none';
-                    }, 5000);
-                    
-                    // Clear password field for security
-                    passwordInput.value = '';
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.textContent = '☰';
                 }
-            });
-
-            // Hide error message when user starts typing
-            usernameInput.addEventListener('input', () => {
-                errorMessage.style.display = 'none';
-            });
-            
-            passwordInput.addEventListener('input', () => {
-                errorMessage.style.display = 'none';
             });
         });
 
-        // Dynamic Title Effect
-        let titles = [
-            'Admin Panel - Omar Mammadli',
-            'Secure Access - Omar Mammadli',
-            'Login Required - Omar Mammadli'
-        ];
-        let currentTitleIndex = 0;
+        // Login Form Handler
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
 
-        setInterval(() => {
-            document.title = titles[currentTitleIndex];
-            currentTitleIndex = (currentTitleIndex + 1) % titles.length;
-        }, 4000);
-    </script>
+        // ✅ Burada istifadəçiləri əlavə edirik
+        const users = {
+            "omarmammadli": "omerCE2009",
+            "abdulla": "abdulla012",
+            "elcanseyidov": "elcan1223",
+            "elimemmedli": "eli2013",
+            "esmer": "esmer0101"
+        };
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            // Check credentials
+            if (users[username] && users[username] === password) {
+                // Success - redirect to 349340.html
+                window.location.href = '349340.html';
+            } else {
+                // Show error message
+                errorMessage.style.display = 'block';
+                
+                // Add shake animation to form
+                loginForm.style.animation = 'shake 0.5s ease-in-out';
+                
+                // Clear the animation after it completes
+                setTimeout(() => {
+                    loginForm.style.animation = '';
+                }, 500);
+                
+                // Hide error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+                
+                // Clear password field for security
+                passwordInput.value = '';
+            }
+        });
+
+        // Hide error message when user starts typing
+        usernameInput.addEventListener('input', () => {
+            errorMessage.style.display = 'none';
+        });
+        
+        passwordInput.addEventListener('input', () => {
+            errorMessage.style.display = 'none';
+        });
+    });
+
+    // Dynamic Title Effect
+    let titles = [
+        'Admin Panel - Omar Mammadli',
+        'Secure Access - Omar Mammadli',
+        'Login Required - Omar Mammadli'
+    ];
+    let currentTitleIndex = 0;
+
+    setInterval(() => {
+        document.title = titles[currentTitleIndex];
+        currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+    }, 4000);
+</script>
+
 </body>
 
 </html>
