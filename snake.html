@@ -137,8 +137,8 @@
         const gameOverSound = new Audio('game_over.mp3');
 
         const gridSize = 20;
-        const baseSpeed = 120;
-        const speedIncrement = 3;
+        const baseSpeed = 160; // Hız düşürüldü (sayı ne kadar yüksekse o kadar yavaş)
+        const speedIncrement = 2; // Hız artışı yavaşlatıldı
         const minSpeed = 50;
         
         let snake, food, score, highScore, direction, gameInterval, isGameOver, isPaused, gameStarted, currentSpeed;
@@ -153,7 +153,6 @@
             countdownOverlay.style.display = 'flex';
             let count = 3;
             countdownOverlay.textContent = count;
-
             const countdownInterval = setInterval(() => {
                 count--;
                 if (count > 0) {
@@ -168,13 +167,10 @@
         
         const init = () => {
             if (gameInterval) clearInterval(gameInterval);
-            isGameOver = false;
-            isPaused = false;
-            gameStarted = false;
+            isGameOver = false; isPaused = false; gameStarted = false;
             pauseOverlay.style.display = 'none';
             gameOverModal.style.display = 'none';
             pauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-            
             snake = [{ x: Math.floor(canvas.width / gridSize / 2) * gridSize, y: Math.floor(canvas.height / gridSize / 2) * gridSize }];
             direction = { x: 0, y: 0 };
             score = 0;
@@ -182,7 +178,6 @@
             highScore = localStorage.getItem('snakeHighScore') || 0;
             scoreElement.textContent = score;
             highScoreElement.textContent = highScore;
-            
             generateFood();
             draw(); 
             startCountdown();
@@ -193,17 +188,13 @@
                 x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize,
                 y: Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize
             };
-            if (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
-                generateFood();
-            }
+            if (snake.some(segment => segment.x === food.x && segment.y === food.y)) generateFood();
         };
 
         const drawGrid = () => {
             ctx.strokeStyle = '#222';
             for (let x = 0; x < canvas.width; x += gridSize) {
-                for (let y = 0; y < canvas.height; y += gridSize) {
-                    ctx.strokeRect(x, y, gridSize, gridSize);
-                }
+                for (let y = 0; y < canvas.height; y += gridSize) ctx.strokeRect(x, y, gridSize, gridSize);
             }
         };
 
@@ -211,11 +202,37 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawGrid();
             snake.forEach((segment, index) => {
-                ctx.fillStyle = index === 0 ? '#00ff88' : '#00ccff';
-                ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+                if (index === 0) {
+                    ctx.fillStyle = '#DC143C'; // Kırmızı baş
+                    ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+                    
+                    // Gözleri çiz
+                    ctx.fillStyle = '#000000'; // Siyah gözler
+                    const eyeSize = gridSize / 5;
+                    const head = snake[0];
+                    if (direction.y === -gridSize) { // Yukarı
+                        ctx.fillRect(head.x + eyeSize, head.y + eyeSize, eyeSize, eyeSize);
+                        ctx.fillRect(head.x + 3 * eyeSize, head.y + eyeSize, eyeSize, eyeSize);
+                    } else if (direction.y === gridSize) { // Aşağı
+                        ctx.fillRect(head.x + eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
+                        ctx.fillRect(head.x + 3 * eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
+                    } else if (direction.x === -gridSize) { // Sol
+                        ctx.fillRect(head.x + eyeSize, head.y + eyeSize, eyeSize, eyeSize);
+                        ctx.fillRect(head.x + eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
+                    } else if (direction.x === gridSize) { // Sağ
+                        ctx.fillRect(head.x + 3 * eyeSize, head.y + eyeSize, eyeSize, eyeSize);
+                        ctx.fillRect(head.x + 3 * eyeSize, head.y + 3 * eyeSize, eyeSize, eyeSize);
+                    } else { // Başlangıçta (hareketsizken)
+                         ctx.fillRect(head.x + eyeSize, head.y + eyeSize, eyeSize, eyeSize);
+                         ctx.fillRect(head.x + 3 * eyeSize, head.y + eyeSize, eyeSize, eyeSize);
+                    }
+                } else {
+                    ctx.fillStyle = '#1E90FF'; // Mavi gövde
+                    ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+                }
             });
-            ctx.fillStyle = '#ff4500';
-            ctx.shadowColor = '#ff4500';
+            ctx.fillStyle = '#7CFC00'; // Yeşil elma
+            ctx.shadowColor = '#7CFC00';
             ctx.shadowBlur = 10;
             ctx.fillRect(food.x, food.y, gridSize, gridSize);
             ctx.shadowBlur = 0;
@@ -234,13 +251,10 @@
                 eatSound.currentTime = 0;
                 eatSound.play();
                 generateFood();
-                
                 currentSpeed = Math.max(minSpeed, currentSpeed - speedIncrement);
                 clearInterval(gameInterval);
                 gameInterval = setInterval(gameLoop, currentSpeed);
-            } else {
-                snake.pop();
-            }
+            } else snake.pop();
         };
         
         const endGame = () => {
@@ -281,10 +295,7 @@
         };
 
         window.addEventListener('keydown', e => {
-            if (e.key === ' ' || e.key === 'p') {
-                e.preventDefault();
-                togglePause();
-            }
+            if (e.key === ' ' || e.key === 'p') { e.preventDefault(); togglePause(); }
             switch (e.key) {
                 case 'ArrowUp': case 'w': changeDirection(0, -1); break;
                 case 'ArrowDown': case 's': changeDirection(0, 1); break;
@@ -302,11 +313,7 @@
         mainRestartButton.addEventListener('click', init);
         pauseButton.addEventListener('click', togglePause);
         
-        window.addEventListener('resize', () => {
-            setupCanvas();
-            draw();
-        });
-        
+        window.addEventListener('resize', () => { setupCanvas(); draw(); });
         setupCanvas();
         init();
     </script>
