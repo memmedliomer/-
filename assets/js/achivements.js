@@ -5,6 +5,7 @@ const projectcardsContainer = document.querySelector(".projectcards"); // Rename
 
 // Array of objects for projects
 const projects = [
+  { title: "Milli Hakaton\n    Olimpiada Mərhələsi uğurla tamamlama! Sertifikatı.", cardImage: "assets/images/project-page/30.png", year: "2025" },
   { title: "World Robotics Championship\n    Finalist Sertifikatı.", cardImage: "assets/images/project-page/29.jpg", year: "2025" },
   { title: "ADA AI challeenge\n    İştirak Sertifikatı.", cardImage: "assets/images/project-page/28.jpg", year: "2025" },
   { title: "Milli Hakaton\n    Seçim Mərhələsi uğurla tamamlama!", cardImage: "assets/images/project-page/27.png", year: "2025" },
