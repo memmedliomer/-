@@ -823,86 +823,83 @@
         </div>
     </div>
 
-    <script>
-        // Existing Modal Script
-        function openModal(certId) {
-            const modal = document.getElementById('certificateModal');
-            const modalImg = document.getElementById('modalImage');
-            
-            const certificateImages = {
-                cert0: '30.png',
-                cert1: '29.jpg',
-                cert2: '28.jpg',
-                cert3: '27.png',
-                cert4: '26.png',
-                cert5: '28.png',
-                cert6: '25.png',
-                cert7: '22.png',
-                cert8: '21.png',
-                cert9: '20.png',
-                cert10: '19.png',
-                cert11: '18.png',
-                cert12: '17.png',
-                cert13: '16.png',
-                cert14: '15.png',
-                cert15: '14.png',
-                cert16: '13.png',
-                cert17: '12.png',
-                cert18: '11.png',
-                cert19: '10.png',
-                cert20: '9.png',
-                cert21: '8.png',
-                cert22: '7.png',
-                cert23: '6.png',
-                cert24: '5.png',
-                cert25: '4.png',
-                cert26: '3.png',
-                cert27: '2.png',
-                cert28: '1.png'
-            };
-            
-            modalImg.src = certificateImages[certId] || 'https://via.placeholder.com/800x600/1a1a1a/00ff88?text=Resim+Bulunamadı';
-            modal.style.display = 'flex';
-        }
+   <script>
+    function openModal(certId) {
+        const modal = document.getElementById('certificateModal');
+        const modalImg = document.getElementById('modalImage');
+        
+        const certificateImages = {
+            cert0: '30.png',
+            cert1: '29.jpg',
+            cert2: '28.jpg',
+            cert3: '27.png',
+            cert4: '26.png',
+            cert5: '28.png',
+            cert6: '25.png',
+            cert7: '22.png',
+            cert8: '21.png',
+            cert9: '20.png',
+            cert10: '19.png',
+            cert11: '18.png',
+            cert12: '17.png',
+            cert13: '16.png',
+            cert14: '15.png',
+            cert15: '14.png',
+            cert16: '13.png',
+            cert17: '12.png',
+            cert18: '11.png',
+            cert19: '10.png',
+            cert20: '9.png',
+            cert21: '8.png',
+            cert22: '7.png',
+            cert23: '6.png',
+            cert24: '5.png',
+            cert25: '4.png',
+            cert26: '3.png',
+            cert27: '2.png',
+            cert28: '1.png'
+        };
+        
+        modalImg.src = certificateImages[certId] || 'https://via.placeholder.com/800x600/1a1a1a/00ff88?text=Resim+Bulunamadı';
+        modal.style.display = 'flex';
+    }
 
-        function closeModal() {
-            const modal = document.getElementById('certificateModal');
-            modal.style.display = 'none';
-        }
+    function closeModal() {
+        const modal = document.getElementById('certificateModal');
+        modal.style.display = 'none';
+    }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('certificateModal');
-            if (event.target == modal) {
-                closeModal();
-            }
+    window.onclick = function(event) {
+        const modal = document.getElementById('certificateModal');
+        if (event.target == modal) {
+            closeModal();
         }
+    }
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.textContent = navMenu.classList.contains('active') ? '✖' : '☰';
         });
 
-        // Navbar Toggle Script
-        document.addEventListener('DOMContentLoaded', () => {
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
-
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.textContent = navMenu.classList.contains('active') ? '✖' : '☰';
-            });
-
-            // Close menu when clicking a link on mobile
-            navMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        hamburger.textContent = '☰';
-                    }
-                });
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.textContent = '☰';
+                }
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
