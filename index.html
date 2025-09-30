@@ -14,6 +14,7 @@
 
     <meta property="og:title" content="Ömər Məmmədli - Şəxsi Portfolyo">
     <meta property="og:description" content="Robotexnika, dron layihələri, nəaliyyətlər və əlaqə məlumatları.">
+    <meta property="og:image" content="https://www.omer.digital/assets/images/pp.webp">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.omer.digital">
     <meta property="og:site_name" content="Ömər Məmmədli | Portfolyo">
@@ -21,6 +22,7 @@
     <meta name="twitter:site" content="@memmedli_01_">
     <meta name="twitter:title" content="Ömər Məmmədli - Proqramist & Developer">
     <meta name="twitter:description" content="Proqramist developer və olimpiadaçı tələbə Ömər Məmmədli'nin şəxsi portfolyosu.">
+    <meta name="twitter:image" content="https://www.omer.digital/assets/images/pp.webp">
 
     <script type="application/ld+json">
     {
@@ -29,6 +31,7 @@
       "name": "Ömər Məmmədli",
       "alternateName": ["Omar Mammadli", "Omer Mammadli", "memmedli omer", "məmmədli ömər"],
       "url": "https://www.omer.digital",
+      "image": "https://www.omer.digital/assets/images/pp.webp",
       "email": "omrmmmmdli736@gmail.com",
       "jobTitle": ["Tələbə", "Proqramist", "Developer", "Olimpiadaçı"],
       "knowsAbout": ["Robotexnika", "Dronlar", "Proqramlaşdırma", "Veb Development"],
@@ -44,7 +47,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-    <link id="favicon" rel="shortcut icon" href="assets/images/favicon.png" type="image/x-png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     
     <noscript>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -75,7 +80,6 @@
             overflow-x: hidden; 
             position: relative; 
             min-height: 100vh;
-            /* YENİ NEON GRID ARXA FON */
             background-image: 
                 radial-gradient(ellipse at center, var(--neon-glow-color) 0%, rgba(0,0,0,0) 60%),
                 radial-gradient(circle at 1px 1px, var(--grid-dot-color) 1px, transparent 0);
@@ -94,7 +98,21 @@
         
         .main-content { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 10; padding: 80px 20px; }
         .hero-section { text-align: center; padding: 40px 25px; max-width: 800px; margin: 0 auto; position: relative; }
-        .hero-section::before { content: ''; position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; background: rgba(20, 20, 20, 0.5); border: 1px solid rgba(0, 255, 136, 0.1); border-radius: 30px; z-index: -1; backdrop-filter: blur(5px); }
+        
+        /* ==== ORTADAKI QUTU (KİÇİLDİLMİŞ) ==== */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 30px;
+            z-index: -1;
+            backdrop-filter: blur(5px);
+        }
         .profile-image-container { margin-bottom: 25px; position: relative; }
         .profile-image { width: 200px; height: 200px; border-radius: 50%; border: 3px solid #00ff88; transition: all 0.5s ease; position: relative; z-index: 2; box-shadow: 0 0 25px rgba(0, 255, 136, 0.5); }
         .name { font-size: 3rem; font-weight: 800; background: linear-gradient(45deg, #00ff88, #00ccff, #ff0088, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 15px; text-shadow: 0 0 30px rgba(0, 255, 136, 0.5); animation: textGlow 3s ease-in-out infinite alternate; line-height: 1.2; }
