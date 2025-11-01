@@ -519,7 +519,29 @@
         <div class="header">
             <h1>ACHIEVEMENTS</h1>
         </div>
-        <div class="certificate-card" onclick="openModal('cert29')">
+        <div id="achievements-gallery">
+            <div class="certificates-grid">
+                 <div class="certificate-card" onclick="openModal('cert33')">
+                    <div class="image-container">
+                        <img src="33.jpg" alt="OTK SINAQ" class="certificate-image">
+                    </div>
+                    <div class="certificate-content">
+                        <div class="certificate-badge badge-tier-5">✔</div>
+                        <div class="certificate-year">2025</div>
+                        <h3 class="certificate-name">COMEİNG SOON</h3>
+                    </div>
+                </div>
+                 <div class="certificate-card" onclick="openModal('cert32')">
+                    <div class="image-container">
+                        <img src="32.jpg" alt="OTK SINAQ" class="certificate-image">
+                    </div>
+                    <div class="certificate-content">
+                        <div class="certificate-badge badge-tier-5">✔</div>
+                        <div class="certificate-year">2025</div>
+                        <h3 class="certificate-name">COMEİNG SOON</h3>
+                    </div>
+                </div>
+                <div class="certificate-card" onclick="openModal('cert29')">
                     <div class="image-container">
                         <img src="31.jpeg" alt="OTK SINAQ" class="certificate-image">
                     </div>
@@ -529,8 +551,6 @@
                         <h3 class="certificate-name">OTK Buraxılış sınağı yüksək nəticə</h3>
                     </div>
                 </div>
-        <div id="achievements-gallery">
-            <div class="certificates-grid">
                  <div class="certificate-card" onclick="openModal('cert0')">
                     <div class="image-container">
                         <img src="30.png" alt="Milli Hakaton" class="certificate-image">
@@ -838,6 +858,8 @@
         const modalImg = document.getElementById('modalImage');
         
         const certificateImages = {
+            cert33: '33.jpg',
+            cert32: '32.jpg',
             cert29: '31.jpeg',
             cert0: '30.png',
             cert1: '29.jpg',
