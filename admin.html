@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Omar Mammadli</title>
+    <title>Xidmətlər - Omar Mammadli</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -226,28 +226,89 @@
         .main-content {
             position: relative;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 120px 20px 60px;
             z-index: 10;
         }
 
-        /* Login Container */
-        .login-container {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-            border: 1px solid #333;
-            border-radius: 20px;
-            padding: 50px 40px;
-            position: relative;
-            overflow: hidden;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            margin-top: 80px;
-            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.2);
+        .container-services {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .login-container::before {
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 70px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        /* Service Card */
+        .service-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -257,6 +318,8 @@
             background: linear-gradient(90deg, #00ff88, #00ccff, #ff0088, #00ff88);
             background-size: 200% 100%;
             animation: rainbowFlow 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         @keyframes rainbowFlow {
@@ -264,104 +327,84 @@
             100% { background-position: 200% 50%; }
         }
 
-        /* Profile Image */
-        .profile-section {
-            margin-bottom: 40px;
-        }
-
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #00ff88;
-            margin: 0 auto 20px;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .profile-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
-        }
-
-        .admin-title {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #00ff88, #00ccff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-        }
-
-        .admin-subtitle {
-            color: #aaa;
-            font-size: 1rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-        }
-
-        /* Form Styles */
-        .login-form {
-            text-align: left;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .form-label {
-            color: #00ff88;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .form-input:focus {
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
             border-color: #00ff88;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-            background: rgba(0, 255, 136, 0.1);
         }
 
-        .form-input::placeholder {
-            color: #666;
+        .service-card:hover::before {
+            opacity: 1;
         }
 
-        .input-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
+        /* Service Icon */
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            color: #000;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(360deg) scale(1.1);
+        }
+
+        /* Service Content */
+        .service-title {
+            font-size: 1.6rem;
+            font-weight: 700;
             color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .service-description {
+            color: #bbb;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            min-height: 60px;
+        }
+
+        /* Service Features */
+        .service-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .service-features li {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+            font-weight: bold;
             font-size: 1.1rem;
         }
 
-        .login-btn {
+        /* Contact Button */
+        .contact-btn {
             width: 100%;
             padding: 15px 30px;
             background: linear-gradient(45deg, #00ff88, #00ccff);
             border: none;
             border-radius: 50px;
             color: #000;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             font-family: 'Poppins', sans-serif;
             text-transform: uppercase;
@@ -370,11 +413,13 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            margin-top: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
         }
 
-        .login-btn::before {
+        .contact-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -385,52 +430,96 @@
             transition: left 0.5s;
         }
 
-        .login-btn:hover {
+        .contact-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.6);
         }
 
-        .login-btn:hover::before {
+        .contact-btn:hover::before {
             left: 100%;
         }
 
-        .login-btn:active {
+        .contact-btn:active {
             transform: translateY(0);
         }
 
-        /* Error Message */
-        .error-message {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            color: #ff6b6b;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            display: none;
-            animation: shake 0.5s ease-in-out;
+        .contact-btn i {
+            margin-right: 8px;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+        /* CTA Section */
+        .cta-section {
+            margin-top: 80px;
+            text-align: center;
+            padding: 60px 30px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            color: #bbb;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.6);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .login-container {
-                padding: 40px 30px;
-                margin: 20px;
+            .page-title {
+                font-size: 2.5rem;
             }
 
-            .admin-title {
-                font-size: 1.6rem;
+            .page-subtitle {
+                font-size: 1rem;
             }
 
-            .profile-image {
-                width: 100px;
-                height: 100px;
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .service-card {
+                padding: 30px 25px;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .cta-text {
+                font-size: 1rem;
             }
         }
 
@@ -454,9 +543,9 @@
             <a href="#" class="navbar-brand">Omar Mammadli</a>
             <div class="hamburger">☰</div>
             <div class="nav-menu">
-                <a href="index.html">Home</a>
-                <a href="achivements.html">Achievements</a>
-                <a href="admin.html" class="active">Admin</a>
+                <a href="index.html">Ana Səhifə</a>
+                <a href="achivements.html">Nailiyyətlər</a>
+                <a href="xidmetler.html" class="active">Xidmətlər</a>
             </div>
         </div>
     </nav>
@@ -468,7 +557,7 @@
         <div class="floating-icons" style="top: 60%; left: 5%; animation-delay: 2s;">💻</div>
         <div class="floating-icons" style="top: 70%; right: 10%; animation-delay: 3s;">🎯</div>
         <div class="floating-icons" style="top: 40%; left: 80%; animation-delay: 4s;">🔥</div>
-        <div class="floating-icons" style="top: 30%; left: 60%; animation-delay: 5s;">🔒</div>
+        <div class="floating-icons" style="top: 30%; left: 60%; animation-delay: 5s;">🔧</div>
     </div>
 
     <!-- Fire Ball Animation -->
@@ -476,135 +565,160 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="login-container">
-            <div class="profile-section">
-                <img src="assets/images/pp.webp" alt="Omar Mammadli" class="profile-image">
-                <h1 class="admin-title">Admin Panel</h1>
-                <p class="admin-subtitle">Secure Access Portal</p>
+        <div class="container-services">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Xidmətlərimiz</h1>
+                <p class="page-subtitle">Peşəkar və innovativ həllər ilə biznesinizi gələcəyə daşıyın</p>
             </div>
 
-            <form class="login-form" id="loginForm">
-                <div class="form-group">
-                    <label class="form-label" for="username">Username</label>
-                    <div style="position: relative;">
-                        <input type="text" id="username" class="form-input" placeholder="Enter your username" autocomplete="username">
-                        <i class="fas fa-user input-icon"></i>
+            <!-- Services Grid -->
+            <div class="services-grid">
+                <!-- Service 1: Racing Drones -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-helicopter"></i>
                     </div>
+                    <h3 class="service-title">Yarış Dronları Hazırlanması</h3>
+                    <p class="service-description">Yüksək sürətli və professional yarış dronlarının fərdi dizayn və montajı. Hər bir dron sizin tələblərinizə uyğun hazırlanır.</p>
+                    <ul class="service-features">
+                        <li>Fərdi dizayn və konfiqurasiya</li>
+                        <li>Premium komponentlər</li>
+                        <li>Test və sınaq uçuşları</li>
+                        <li>Texniki dəstək və təlim</li>
+                    </ul>
+                    <a href="https://wa.link/mj2od2" class="contact-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Əlaqə Saxla
+                    </a>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
-                    <div style="position: relative;">
-                        <input type="password" id="password" class="form-input" placeholder="Enter your password" autocomplete="current-password">
-                        <i class="fas fa-lock input-icon"></i>
+                <!-- Service 2: Web Development -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
                     </div>
+                    <h3 class="service-title">Veb Saytların Hazırlanması</h3>
+                    <p class="service-description">Müasir və responsive veb saytlar. Şirkətinizin rəqəmsal dünyada uğurlu təqdimatı üçün professional həllər.</p>
+                    <ul class="service-features">
+                        <li>Responsive və SEO-friendly dizayn</li>
+                        <li>İstifadəçi dostu interfeys</li>
+                        <li>Sürətli və təhlükəsiz</li>
+                        <li>Admin panel və CMS</li>
+                    </ul>
+                    <a href="https://wa.link/mj2od2" class="contact-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Əlaqə Saxla
+                    </a>
                 </div>
 
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>
-                    Login
-                </button>
-
-                <div id="errorMessage" class="error-message">
-                    <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
-                    Invalid username or password. Please try again.
+                <!-- Service 3: SEO + Domain + Hosting -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="service-title">SEO + Domen + Hosting</h3>
+                    <p class="service-description">Tam paket hosting həlli. Domen qeydiyyatından SEO optimallaşdırmaya qədər hər şey bir yerdə.</p>
+                    <ul class="service-features">
+                        <li>Pulsuz SSL sertifikatı</li>
+                        <li>24/7 texniki dəstək</li>
+                        <li>Avtomatik backup sistemi</li>
+                        <li>Google SEO optimallaşdırması</li>
+                    </ul>
+                    <a href="https://wa.link/mj2od2" class="contact-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Əlaqə Saxla
+                    </a>
                 </div>
-            </form>
+
+                <!-- Service 4: Telegram Bots -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fab fa-telegram-plane"></i>
+                    </div>
+                    <h3 class="service-title">Telegram Botlarının Hazırlanması</h3>
+                    <p class="service-description">Avtomatlaşdırılmış Telegram botları. Müştəri xidməti, marketinq və biznes proseslərinin avtomatlaşdırılması.</p>
+                    <ul class="service-features">
+                        <li>Fərdi funksionallıq</li>
+                        <li>Ödəniş sistemləri inteqrasiyası</li>
+                        <li>Verilənlər bazası idarəetməsi</li>
+                        <li>Admin panel və statistika</li>
+                    </ul>
+                    <a href="https://wa.link/mj2od2" class="contact-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Əlaqə Saxla
+                    </a>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2 class="cta-title">Layihəniz Var?</h2>
+                <p class="cta-text">
+                    Texnologiya həllərinizdə peşəkar yanaşma və keyfiyyətli xidmət axtarırsınız? 
+                    Gəlin birlikdə uğura doğru addım ataq!
+                </p>
+                <a href="https://wa.link/mj2od2" class="cta-button" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp ilə Əlaqə Saxla
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-    // Navbar Toggle
-    document.addEventListener('DOMContentLoaded', () => {
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+        // Navbar Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            hamburger.textContent = navMenu.classList.contains('active') ? '✖' : '☰';
-        });
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.textContent = navMenu.classList.contains('active') ? '✖' : '☰';
+            });
 
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    hamburger.textContent = '☰';
-                }
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.textContent = '☰';
+                    }
+                });
             });
         });
 
-        // Login Form Handler
-        const loginForm = document.getElementById('loginForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
+        // Dynamic Title Effect
+        let titles = [
+            'Xidmətlər - Omar Mammadli',
+            'Professional Həllər - Omar Mammadli',
+            'Sizin Texnologiya Tərəfdaşınız'
+        ];
+        let currentTitleIndex = 0;
 
-        // ✅ Burada istifadəçiləri əlavə edirik
-        const users = {
-            "omarmammadli": "omerCE2009",
-            "abdulla": "abdulla012",
-            "elcanseyidov": "elcan1223",
-            "elimemmedli": "eli2013",
-            "fuad": "mahmudzade01",
-            "esmer": "esmer0101"
+        setInterval(() => {
+            document.title = titles[currentTitleIndex];
+            currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+        }, 4000);
+
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value.trim();
-            
-            // Check credentials
-            if (users[username] && users[username] === password) {
-                // Success - redirect to 349340.html
-                window.location.href = '349340.html';
-            } else {
-                // Show error message
-                errorMessage.style.display = 'block';
-                
-                // Add shake animation to form
-                loginForm.style.animation = 'shake 0.5s ease-in-out';
-                
-                // Clear the animation after it completes
-                setTimeout(() => {
-                    loginForm.style.animation = '';
-                }, 500);
-                
-                // Hide error message after 5 seconds
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 5000);
-                
-                // Clear password field for security
-                passwordInput.value = '';
-            }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            observer.observe(card);
         });
-
-        // Hide error message when user starts typing
-        usernameInput.addEventListener('input', () => {
-            errorMessage.style.display = 'none';
-        });
-        
-        passwordInput.addEventListener('input', () => {
-            errorMessage.style.display = 'none';
-        });
-    });
-
-    // Dynamic Title Effect
-    let titles = [
-        'Admin Panel - Omar Mammadli',
-        'Secure Access - Omar Mammadli',
-        'Login Required - Omar Mammadli'
-    ];
-    let currentTitleIndex = 0;
-
-    setInterval(() => {
-        document.title = titles[currentTitleIndex];
-        currentTitleIndex = (currentTitleIndex + 1) % titles.length;
-    }, 4000);
-</script>
-
+    </script>
 </body>
 
 </html>
